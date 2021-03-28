@@ -50,6 +50,33 @@ class User(commands.Cog):
 # async def cooldown_message(ctx, error):
 #     if isinstance(error, commands.CommandOnCooldown):
 #         await ctx.send(f"{ctx.command.qualified_name} можно использовать только {error.cooldown.rate} раз в {error.cooldown.per} секунд. Попробуйте через {error.retry_after} секунд.")
+	
+
+
+	@commands.command(aliases = ["userinf"])
+	async def user_info(self, ctx, target: Optional[Member]):
+		target = target or ctx.author
+
+		embed = Embed(title="User information",
+					  colour=target.colour,
+					  timestamp=datetime.utcnow())
+
+		embed.set_thumbnail(url=target.avatar_url)
+
+		fields = [("Name", str(target), True),
+				  ("ID", target.id, True),
+				  ("Bot?", target.bot, True),
+				  ("Top role", target.top_role.mention, True),
+				  ("Status", str(target.status).title(), True),
+				  ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} {target.activity.name if target.activity else ''}", True),
+				  ("Created at", target.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
+				  ("Joined at", target.joined_at.strftime("%d/%m/%Y %H:%M:%S"), True),
+				  ("Boosted", bool(target.premium_since), True)]
+
+		for name, value, inline in fields:
+			embed.add_field(name=name, value=value, inline=inline)
+
+		await ctx.send(embed=embed)
 
 # clear mess
 	@commands.command(aliases = ["clea"])
