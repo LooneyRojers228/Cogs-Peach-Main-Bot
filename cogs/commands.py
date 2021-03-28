@@ -43,16 +43,7 @@ class User(commands.Cog):
 		emb.set_thumbnail(url=ctx.bot.user.avatar_url)
 		await ctx.send (embed = emb,delete_after=30)
 
-# @client.command()
-# @commands.cooldown(1, 60, commands.BucketType.user)  # Один раз в 60 секунд на пользователя (глобально)
-# async def cmd(ctx, ...):
 
-
-# @client.listen("on_command_error")
-# async def cooldown_message(ctx, error):
-#     if isinstance(error, commands.CommandOnCooldown):
-#         await ctx.send(f"{ctx.command.qualified_name} можно использовать только {error.cooldown.rate} раз в {error.cooldown.per} секунд. Попробуйте через {error.retry_after} секунд.")
-	
 
 
 
@@ -225,52 +216,11 @@ class User(commands.Cog):
 			await ctx.send(f"{slotmachine} Вы проиграли( 😢", delete_after=15)
 
 
-	@commands.command()
-	async def user(self, ctx, *, user: discord.Member = None):
-		user = user or ctx.author
-
-		show_roles = ', '.join(
-			[f"<@&{x.id}>" for x in sorted(user.roles, key=lambda x: x.position, reverse=True) if x.id != ctx.guild.default_role.id]
-		) if len(user.roles) > 1 else 'None'
-
-		embed = discord.Embed(colour=user.top_role.colour.value)
-		embed.set_thumbnail(url=user.avatar_url)
-
-		embed.add_field(name="Полное имя", value=user, inline=True)
-		embed.add_field(name="Ник", value=user.nick if hasattr(user, "nick") else "None", inline=True)
-		embed.add_field(name="Дата создания аккаунта", value=default.date(user.created_at), inline=True)
-		embed.add_field(name="Присоединился на сервера", value=default.date(user.joined_at), inline=True)
-		embed.add_field(name="Роли", value=show_roles, inline=False)
-
-		await ctx.send(content=f"ℹ Об**{user.id}**", embed=embed)
 
 
 
-	# @commands.command()
-	# async def about(self,ctx):
-	# 	ramUsage = self.process.memory_full_info().rss / 1024**2
-	# 	avgmembers = sum(g.member_count for g in self.bot.guilds) / len(self.bot.guilds)
-	# 	embedColour = discord.Embed.Empty
-	# 	if hasattr(ctx, 'guild') and ctx.guild is not None:
-	# 		embedColour = ctx.me.top_role.colour
-	# 	embed = discord.Embed(colour=embedColour)
-	# 	embed.set_thumbnail(url=ctx.bot.user.avatar_url)
-	# 	embed.add_field(name="Last boot", value=default.timeago(datetime.now() - self.bot.uptime), inline=True)
-	# 	embed.add_field(name=f"Developer **@LOONEY ROJERS#3966**", value= '21', inline=True)
-	# 	embed.add_field(name="Library", value="discord.py", inline=True)
-	# 	embed.add_field(name="Servers", value=f"{len(ctx.bot.guilds)} ( avg: {avgmembers:,.2f} users/server )", inline=True)
-	# 	embed.add_field(name="Commands loaded", value=len([x.name for x in self.bot.commands]), inline=True)
-	# 	embed.add_field(name="RAM", value=f"{ramUsage:.2f} MB", inline=True)
 
-	# 	await ctx.send(content=f"ℹ Об **{ctx.bot.user}** | **['version 3.1 **", embed=embed)
 
-# #Press F to pay respect 
-# @client.command()
-# async def f(ctx, *, text: commands.clean_content = None):
-#     hearts = ['❤', '💛', '💚', '💙', '💜']
-#     reason = f"f **{text}** " if text else ""
-#     await ctx.send(f"**{ctx.author.name}** поставил {reason}{random.choice(hearts)}")
-    
     
 # #userinfo
 # @commands.command()
@@ -284,12 +234,7 @@ class User(commands.Cog):
 #     emb.set_footer(text=f"Аккаунт: {ctx.message.author}",icon_url=ctx.message.author.avatar_url)
 #     await ctx.send (content=ctx.author.mention,embed = emb)
 
-	# @client.listen("on_command_error")
-	# async def cooldown_message(ctx, error):
-	# 	if isinstance(error, commands.CommandOnCooldown):
-	# 		await ctx.channel.purge(limit = 1)
-	# 		embed = discord.Embed(title=f"Команду можно использовать только {error.cooldown.rate} раз в {error.cooldown.per} секунд", description=f"Попробуйте через {error.retry_after} секунд.", colour = discord.Color.gold(), timestamp=ctx.message.created_at)
-	# 		await ctx.send(embed=embed, delete_after=10)
+
 
 	@clear.error
 	async def clear_error(self, ctx,error):
