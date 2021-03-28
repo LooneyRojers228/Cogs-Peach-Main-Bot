@@ -55,30 +55,7 @@ class User(commands.Cog):
 	
 
 
-	@commands.command(aliases = ["userinf"])
-	async def user_info(self, ctx, target: Optional[Member]):
-		target = target or ctx.author
 
-		embed = Embed(title="User information",
-					  colour=target.colour,
-					  timestamp=datetime.utcnow())
-
-		embed.set_thumbnail(url=target.avatar_url)
-
-		fields = [("Name", str(target), True),
-				  ("ID", target.id, True),
-				  ("Bot?", target.bot, True),
-				  ("Top role", target.top_role.mention, True),
-				  ("Status", str(target.status).title(), True),
-				  ("Activity", f"{str(target.activity.type).split('.')[-1].title() if target.activity else 'N/A'} {target.activity.name if target.activity else ''}", True),
-				  ("Created at", target.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
-				  ("Joined at", target.joined_at.strftime("%d/%m/%Y %H:%M:%S"), True),
-				  ("Boosted", bool(target.premium_since), True)]
-
-		for name, value, inline in fields:
-			embed.add_field(name=name, value=value, inline=inline)
-
-		await ctx.send(embed=embed)
 
 # clear mess
 	@commands.command(aliases = ["clea"])
@@ -250,27 +227,23 @@ class User(commands.Cog):
 
 
 
-# @commands.command()
-# async def about(self,ctx):
-#     ramUsage = self.process.memory_full_info().rss / 1024**2
-#     avgmembers = sum(g.member_count for g in self.bot.guilds) / len(self.bot.guilds)
-#     embedColour = discord.Embed.Empty
-#     if hasattr(ctx, 'guild') and ctx.guild is not None:
-#         embedColour = ctx.me.top_role.colour
-#     embed = discord.Embed(colour=embedColour)
-#     embed.set_thumbnail(url=ctx.bot.user.avatar_url)
-#     embed.add_field(name="Last boot", value=default.timeago(datetime.now() - self.bot.uptime), inline=True)
-#     embed.add_field(
-#         name=f"Developer{'' if len(self.config['owners']) == 1 else 's'}",
-#         value=', '.join([str(self.bot.get_user(x)) for x in self.config["owners"]]),
-#         inline=True
-#     )
-#     embed.add_field(name="Library", value="discord.py", inline=True)
-#     embed.add_field(name="Servers", value=f"{len(ctx.bot.guilds)} ( avg: {avgmembers:,.2f} users/server )", inline=True)
-#     embed.add_field(name="Commands loaded", value=len([x.name for x in self.bot.commands]), inline=True)
-#     embed.add_field(name="RAM", value=f"{ramUsage:.2f} MB", inline=True)
+	@commands.command()
+	async def about(self,ctx):
+		ramUsage = self.process.memory_full_info().rss / 1024**2
+		avgmembers = sum(g.member_count for g in self.bot.guilds) / len(self.bot.guilds)
+		embedColour = discord.Embed.Empty
+		if hasattr(ctx, 'guild') and ctx.guild is not None:
+			embedColour = ctx.me.top_role.colour
+		embed = discord.Embed(colour=embedColour)
+		embed.set_thumbnail(url=ctx.bot.user.avatar_url)
+		embed.add_field(name="Last boot", value=default.timeago(datetime.now() - self.bot.uptime), inline=True)
+		embed.add_field(name=f"Developer **@LOONEY ROJERS#3966**", value= '21', inline=True)
+		embed.add_field(name="Library", value="discord.py", inline=True)
+		embed.add_field(name="Servers", value=f"{len(ctx.bot.guilds)} ( avg: {avgmembers:,.2f} users/server )", inline=True)
+		embed.add_field(name="Commands loaded", value=len([x.name for x in self.bot.commands]), inline=True)
+		embed.add_field(name="RAM", value=f"{ramUsage:.2f} MB", inline=True)
 
-#     await ctx.send(content=f"ℹ About **{ctx.bot.user}** | **{self.config['version']}**", embed=embed)
+		await ctx.send(content=f"ℹ Об **{ctx.bot.user}** | **['version 3.1 **", embed=embed)
 
 # #Press F to pay respect 
 # @client.command()
