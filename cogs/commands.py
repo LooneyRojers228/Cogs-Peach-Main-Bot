@@ -225,6 +225,25 @@ class User(commands.Cog):
 			await ctx.send(f"{slotmachine} Вы проиграли( 😢", delete_after=15)
 
 
+	@commands.command()
+	async def user(self, ctx, *, user: discord.Member = None):
+		user = user or ctx.author
+
+		show_roles = ', '.join(
+			[f"<@&{x.id}>" for x in sorted(user.roles, key=lambda x: x.position, reverse=True) if x.id != ctx.guild.default_role.id]
+		) if len(user.roles) > 1 else 'None'
+
+		embed = discord.Embed(colour=user.top_role.colour.value)
+		embed.set_thumbnail(url=user.avatar_url)
+
+		embed.add_field(name="Полное имя", value=user, inline=True)
+		embed.add_field(name="Ник", value=user.nick if hasattr(user, "nick") else "None", inline=True)
+		embed.add_field(name="Дата создания аккаунта", value=default.date(user.created_at), inline=True)
+		embed.add_field(name="Присоединился на сервера", value=default.date(user.joined_at), inline=True)
+		embed.add_field(name="Роли", value=show_roles, inline=False)
+
+		await ctx.send(content=f"ℹ Об**{user.id}**", embed=embed)
+
 
 
 	# @commands.command()
