@@ -227,23 +227,23 @@ class User(commands.Cog):
 
 
 
-	@commands.command()
-	async def about(self,ctx):
-		ramUsage = self.process.memory_full_info().rss / 1024**2
-		avgmembers = sum(g.member_count for g in self.bot.guilds) / len(self.bot.guilds)
-		embedColour = discord.Embed.Empty
-		if hasattr(ctx, 'guild') and ctx.guild is not None:
-			embedColour = ctx.me.top_role.colour
-		embed = discord.Embed(colour=embedColour)
-		embed.set_thumbnail(url=ctx.bot.user.avatar_url)
-		embed.add_field(name="Last boot", value=default.timeago(datetime.now() - self.bot.uptime), inline=True)
-		embed.add_field(name=f"Developer **@LOONEY ROJERS#3966**", value= '21', inline=True)
-		embed.add_field(name="Library", value="discord.py", inline=True)
-		embed.add_field(name="Servers", value=f"{len(ctx.bot.guilds)} ( avg: {avgmembers:,.2f} users/server )", inline=True)
-		embed.add_field(name="Commands loaded", value=len([x.name for x in self.bot.commands]), inline=True)
-		embed.add_field(name="RAM", value=f"{ramUsage:.2f} MB", inline=True)
+	# @commands.command()
+	# async def about(self,ctx):
+	# 	ramUsage = self.process.memory_full_info().rss / 1024**2
+	# 	avgmembers = sum(g.member_count for g in self.bot.guilds) / len(self.bot.guilds)
+	# 	embedColour = discord.Embed.Empty
+	# 	if hasattr(ctx, 'guild') and ctx.guild is not None:
+	# 		embedColour = ctx.me.top_role.colour
+	# 	embed = discord.Embed(colour=embedColour)
+	# 	embed.set_thumbnail(url=ctx.bot.user.avatar_url)
+	# 	embed.add_field(name="Last boot", value=default.timeago(datetime.now() - self.bot.uptime), inline=True)
+	# 	embed.add_field(name=f"Developer **@LOONEY ROJERS#3966**", value= '21', inline=True)
+	# 	embed.add_field(name="Library", value="discord.py", inline=True)
+	# 	embed.add_field(name="Servers", value=f"{len(ctx.bot.guilds)} ( avg: {avgmembers:,.2f} users/server )", inline=True)
+	# 	embed.add_field(name="Commands loaded", value=len([x.name for x in self.bot.commands]), inline=True)
+	# 	embed.add_field(name="RAM", value=f"{ramUsage:.2f} MB", inline=True)
 
-		await ctx.send(content=f"ℹ Об **{ctx.bot.user}** | **['version 3.1 **", embed=embed)
+	# 	await ctx.send(content=f"ℹ Об **{ctx.bot.user}** | **['version 3.1 **", embed=embed)
 
 # #Press F to pay respect 
 # @client.command()
