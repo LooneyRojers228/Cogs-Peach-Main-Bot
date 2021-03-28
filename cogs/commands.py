@@ -3,6 +3,7 @@ import asyncio
 import datetime
 import random
 from discord.ext import commands
+from typing import Optional
 
 
 
