@@ -37,7 +37,7 @@ class User(commands.Cog):
 	@commands.cooldown(1, 60, commands.BucketType.user)
 	async def avtor (self, ctx):
 		await ctx.message.delete()
-		emb = discord.Embed (title = f"Peach Bot created by **@LOONEY ROJERS#3966** ", description = f"[Ссылка на мой VK](https://vk.com/rojers228) \n Peach Bot Main, 2021", colour = discord.Color.gold())
+		emb = discord.Embed (title = f"Peach Bot created by **@LOONEY ROJERS#3966** ", description = f"[Ссылка на мой VK](https://vk.com/rojers228) \n \n Peach Bot Main, 2021", colour = discord.Color.gold())
 		emb.set_thumbnail(url=ctx.bot.user.avatar_url)
 		await ctx.send (embed = emb,delete_after=30)
 
