@@ -46,6 +46,7 @@ class User(commands.Cog):
 
 	@commands.command(name="serverinfo", aliases=["guildinfo", "si", "gi"])
 	async def server_info(self, ctx):
+		await ctx.message.delete()
 		embed = Embed(title="Информация о сервере",
 					  colour=ctx.guild.owner.colour,
 					  timestamp=datetime.utcnow())
