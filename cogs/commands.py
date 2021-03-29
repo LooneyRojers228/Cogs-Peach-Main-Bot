@@ -48,8 +48,8 @@ class User(commands.Cog):
 	async def server_info(self, ctx):
 		await ctx.message.delete()
 		emb = discord.Embed (title = 'Информация о сервере :clipboard:', colour=discord.Color.gold(), timestamp=datetime.utcnow())
-		# emb.set_thumbnail(url=ctx.guild.icon_url)
-		# emb.add_field(name ='ID', value = ctx.guild.id)
+		emb.set_thumbnail(url=ctx.guild.icon_url)
+		emb.add_field(name ='ID', value = ctx.guild.id)
 		# emb.add_field(name ='Владелец', value = ctx.guild.owner)
 		# emb.add_field(name ='Регион', value = ctx.guild.region)
 		# emb.add_field(name ='Дата создания сервера', value = ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"))
