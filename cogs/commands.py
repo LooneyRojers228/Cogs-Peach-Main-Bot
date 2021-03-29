@@ -52,9 +52,9 @@ class User(commands.Cog):
 		emb.add_field(name ='ID', value = ctx.guild.id)
 		emb.add_field(name ='Владелец', value = ctx.guild.owner)
 		emb.add_field(name ='Регион', value = ctx.guild.region)
-		# emb.add_field(name ='Дата создания сервера', value = ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"))
-		# emb.add_field(name ='Участников', value = ctx.guild.members)
-		# emb.add_field(name ='Роли', value = ctx.guild.roles)
+		emb.add_field(name ='Дата создания сервера', value = ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"))
+		emb.add_field(name ='Участников', value = ctx.guild.members)
+		emb.add_field(name ='Роли', value = ctx.guild.roles)
 		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
 		await ctx.send (embed = emb, delete_after=30)
 
