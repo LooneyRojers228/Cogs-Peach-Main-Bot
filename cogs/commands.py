@@ -59,16 +59,24 @@ class User(commands.Cog):
 		emb.add_field(name ='Людей', value = len(list(filter(lambda m: not m.bot, ctx.guild.members))))
 		emb.add_field(name ='Ботов', value = len(list(filter(lambda m: m.bot, ctx.guild.members))))
 		emb.add_field(name ='Статусы', value = f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}")
+		emb.add_field(name ='Участников', value = len(ctx.guild.members))
+		emb.add_field(name ='Ботов', value = len(list(filter(lambda m: m.bot, ctx.guild.members))))
 		emb.add_field(name ='Текстовых каналов', value = len(ctx.guild.text_channels))
 		emb.add_field(name ='Голосовых каналов', value = len(ctx.guild.voice_channels))
 		emb.add_field(name ='Категорий', value = len(ctx.guild.categories))
-		emb.add_field(name ='Роли', value = len(ctx.guild.roles))
-		emb.set_footer(text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
-		await ctx.send(embed = emb, delete_after=30)
+		emb.add_field(name ='Ролей', value = len(ctx.guild.roles))
+		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+		await ctx.send (embed = emb, delete_after=30)
+
+		# emb.add_field(name ='Роли', value = ctx.guild.roles)
+		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+		await ctx.send (embed = emb, delete_after=30)
 
 				 
-
-
+ ("Text channels", len(ctx.guild.text_channels), True),
+				  ("Voice channels", len(ctx.guild.voice_channels), True),
+				  ("Categories", len(ctx.guild.categories), True),
+				  ("Roles", len(ctx.guild.roles), True),
 # clear mess
 	@commands.command(aliases = ["clea"])
 	@commands.has_any_role(819292703589269514,817408828500213860,817408830240456754,817643991331766283)
