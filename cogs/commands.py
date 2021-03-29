@@ -73,10 +73,6 @@ class User(commands.Cog):
 		await ctx.send (embed = emb, delete_after=30)
 
 				 
- ("Text channels", len(ctx.guild.text_channels), True),
-				  ("Voice channels", len(ctx.guild.voice_channels), True),
-				  ("Categories", len(ctx.guild.categories), True),
-				  ("Roles", len(ctx.guild.roles), True),
 # clear mess
 	@commands.command(aliases = ["clea"])
 	@commands.has_any_role(819292703589269514,817408828500213860,817408830240456754,817643991331766283)
