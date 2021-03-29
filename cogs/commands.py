@@ -44,40 +44,20 @@ class User(commands.Cog):
 		await ctx.send (embed = emb,delete_after=30)
 
 
-	@commands.command(name="serverinfo", aliases=["guildinfo", "si", "gi"])
+	@commands.command(aliases = ["инфо о серваке"])
 	async def server_info(self, ctx):
 		await ctx.message.delete()
-		embed = Embed(title="Информация о сервере",
-					  colour=ctx.guild.owner.colour,
-					  timestamp=datetime.utcnow())
-
+		emb = discord.Embed (title = 'Информация о сервере :clipboard:', colour=ctx.guild.owner.colour, timestamp=datetime.utcnow())
 		embed.set_thumbnail(url=ctx.guild.icon_url)
+		emb.add_field(name ='ID', value = ctx.guild.id, True)
+		emb.add_field(name ='Владелец', value = ctx.guild.owner, True)
+		emb.add_field(name ='Регион', value = ctx.guild.region, True)
+		emb.add_field(name ='Дата создания сервера', value = ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True)
+		emb.add_field(name ='Участников', value = ctx.guild.members, True)
+		emb.add_field(name ='Роли', value = ctx.guild.roles, True)
+		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+		await ctx.send (embed = emb, delete_after=30)
 
-		statuses = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
-					len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
-					len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
-					len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members)))]
-
-		fields = [("ID", ctx.guild.id, True),
-				  ("Владелец", ctx.guild.owner, True),
-				  ("Регион", ctx.guild.region, True),
-				  ("Создан", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
-				  ("Участников", len(ctx.guild.members), True),
-				  ("Людей", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
-				  ("Ботов", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
-				  ("Забаненых участников", len(await ctx.guild.bans()), True),
-				  ("Статусы", f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}", True),
-				  ("Текстовых каналов", len(ctx.guild.text_channels), True),
-				  ("Голосовыйх каналов", len(ctx.guild.voice_channels), True),
-				  ("Категорий", len(ctx.guild.categories), True),
-				  ("роли", len(ctx.guild.roles), True),
-				  ("Приглашения", len(await ctx.guild.invites()), True),
-				  ("\u200b", "\u200b", True)]
-
-		for name, value, inline in fields:
-			embed.add_field(name=name, value=value, inline=inline)
-
-		await ctx.send(embed=embed)
 
 
 
