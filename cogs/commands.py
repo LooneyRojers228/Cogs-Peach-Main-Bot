@@ -44,7 +44,39 @@ class User(commands.Cog):
 		await ctx.send (embed = emb,delete_after=30)
 
 
+	@commands.command(name="serverinfo", aliases=["guildinfo", "si", "gi"])
+	async def server_info(self, ctx):
+		embed = Embed(title="Информация о сервере",
+					  colour=ctx.guild.owner.colour,
+					  timestamp=datetime.utcnow())
 
+		embed.set_thumbnail(url=ctx.guild.icon_url)
+
+		statuses = [len(list(filter(lambda m: str(m.status) == "online", ctx.guild.members))),
+					len(list(filter(lambda m: str(m.status) == "idle", ctx.guild.members))),
+					len(list(filter(lambda m: str(m.status) == "dnd", ctx.guild.members))),
+					len(list(filter(lambda m: str(m.status) == "offline", ctx.guild.members)))]
+
+		fields = [("ID", ctx.guild.id, True),
+				  ("Владелец", ctx.guild.owner, True),
+				  ("Регион", ctx.guild.region, True),
+				  ("Создан", ctx.guild.created_at.strftime("%d/%m/%Y %H:%M:%S"), True),
+				  ("Участников", len(ctx.guild.members), True),
+				  ("Людей", len(list(filter(lambda m: not m.bot, ctx.guild.members))), True),
+				  ("Ботов", len(list(filter(lambda m: m.bot, ctx.guild.members))), True),
+				  ("Забаненых участников", len(await ctx.guild.bans()), True),
+				  ("Статусы", f"🟢 {statuses[0]} 🟠 {statuses[1]} 🔴 {statuses[2]} ⚪ {statuses[3]}", True),
+				  ("Текстовых каналов", len(ctx.guild.text_channels), True),
+				  ("Голосовыйх каналов", len(ctx.guild.voice_channels), True),
+				  ("Категорий", len(ctx.guild.categories), True),
+				  ("роли", len(ctx.guild.roles), True),
+				  ("Приглашения", len(await ctx.guild.invites()), True),
+				  ("\u200b", "\u200b", True)]
+
+		for name, value, inline in fields:
+			embed.add_field(name=name, value=value, inline=inline)
+
+		await ctx.send(embed=embed)
 
 
 
