@@ -67,12 +67,15 @@ class User(commands.Cog):
 		emb.add_field(name ='Ролей', value = len(ctx.guild.roles))
 		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
 		await ctx.send (embed = emb, delete_after=30)
+		
 
-		# emb.add_field(name ='Роли', value = ctx.guild.roles)
+
+
 		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
-		await ctx.send (embed = emb, delete_after=30)
 
 				 
+
+
 # clear mess
 	@commands.command(aliases = ["clea"])
 	@commands.has_any_role(819292703589269514,817408828500213860,817408830240456754,817643991331766283)
