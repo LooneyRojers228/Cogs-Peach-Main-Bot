@@ -4,9 +4,14 @@ import os
 
 TOKEN = 'ODE4ODc3NTY4MTI3NDY3NTcx.YEedKg.8TyZ0PK6tmkTuA9hwP507so79P4'
 
+intents = discord.Intents.all()
+
 PREFIX = '!'
-client = commands.Bot(command_prefix = PREFIX)
+
+client = commands.Bot(command_prefix = PREFIX, intents=intents)
 client.remove_command("help")
+
+
 
 
 @client.command()
@@ -40,5 +45,11 @@ async def reload(ctx, extension):
 for filename in os.listdir("./cogs"):
 	if filename.endswith(".py"):
 		client.load_extension(f"cogs.{filename[:-3]}")
+
+
+
+
+
+
 
 client.run(TOKEN)
