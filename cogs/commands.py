@@ -6,6 +6,8 @@ from discord.ext import commands
 from typing import Optional
 from discord import Embed, Member
 from datetime import datetime
+from discord import utils
+from discord.utils import get
 
 
 
@@ -70,10 +72,9 @@ class User(commands.Cog):
 
 
 
-		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
 
-				 
 
+				
 
 # clear mess
 	@commands.command(aliases = ["clea"])
@@ -244,10 +245,6 @@ class User(commands.Cog):
 
 
 
-
-
-
-
     
 # #userinfo
 # @commands.command()
@@ -328,6 +325,7 @@ class User(commands.Cog):
 			await ctx.message.delete()
 			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format(ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
+
 
 
 def setup(client):
