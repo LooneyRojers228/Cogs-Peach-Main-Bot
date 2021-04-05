@@ -142,7 +142,7 @@ class User(commands.Cog):
 	@commands.cooldown(1, 45, commands.BucketType.user)
 	async def help(self, ctx):
 		await ctx.message.delete()
-		emb = discord.Embed (title = 'Навигация по командам :clipboard:', colour = discord.Color.gold())
+		emb = discord.Embed (title = 'Навигация по командам :clipboard:', colour = discord.Color.gold(), timestamp=datetime.utcnow())
 		emb.add_field(name ='Описание сервера :pencil:', value = 'Rojers Squad, правила можно прочитать в канале #правила')
 		emb.add_field(name ='!clear :broom:', value = 'Очистка чата')
 		emb.add_field(name ='!voteban :lock:', value = 'Бан участника')
@@ -152,6 +152,9 @@ class User(commands.Cog):
 		emb.add_field(name ='!unmute :speaker:', value = 'Размут участника')
 		emb.add_field(name ='!ds :rose:', value = 'Ссылка на наш дс')
 		emb.add_field(name ='!slot 🍒', value = 'Игра для развлечения')
+		emb.add_field(name ='!server_info :pencil:', value = 'Информация о сервере')
+		emb.add_field(name ='!userinfo :pencil:', value = 'Узнать информацию о себе')
+		emb.add_field(name ='!ticket :microbe:', value = 'Заявка на баг/предложение')
 		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
 
 		await ctx.send (embed = emb, delete_after=30)
@@ -172,7 +175,24 @@ class User(commands.Cog):
 		await ctx.send (embed = emb, delete_after=30)
 		await asyncio.sleep(time * 60)
 		await member.remove_roles(mute_role)
-    
+
+		
+   #ticket 
+	@commands.command(aliases = ["pin1111"])
+	@commands.cooldown(1, 30, commands.BucketType.user)
+	async def ticket(self, ctx, *, bag):
+		channel = self.client.get_channel(820341420132139038)
+		myid = '<@375240473184305164>'
+		jasonid = '<@514152570156089365>'
+		await ctx.message.delete()
+		emb = discord.Embed(title = ':pencil: | Заявка на баг/предложение', colour = discord.Color.purple(), timestamp=datetime.utcnow())	
+		emb.add_field(name =f':rose: | Ваше Обращение: {bag} отправлено на рассмотрение', value = ':poop: **| Ожидайте ответа**')
+		emb.set_footer(text =f'Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+		await ctx.send(embed=emb)
+		embed = discord.Embed(title = ':pencil: | Новая заявка на предложение/баг зарегистрирована в системе ', colour = discord.Color.purple(), timestamp=datetime.utcnow())
+		embed.add_field(name=f':rose: | Отправитель: {ctx.author.name}', value = f':poop: **| Суть обращения: {bag}**')
+		embed.set_footer(text =f'Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+		await channel.send(content=f"{myid}{jasonid}**, Пришла новая заявка, ждёт рассмотрения!**", embed=embed) 
 
 
 	#unmute
@@ -244,6 +264,72 @@ class User(commands.Cog):
 			await ctx.send(f"{slotmachine} Вы проиграли( 😢", delete_after=15)
 
 
+	@commands.command(aliases = ["slooo"])
+	@commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
+	async def infouser(self, ctx, member:discord.Member = None, guild: discord.Guild = None):
+
+		await ctx.message.delete()
+		await ctx.send(f"Команда работает только в канале **🍔┃управление-ботом**", delete_after=10)
+		if ctx.channel.id == 817402429100392449:
+			if member == None:
+				emb = discord.Embed(title="Информация о пользователе", color=ctx.message.author.color, timestamp=datetime.utcnow())
+				emb.add_field(name="Имя:", value=ctx.message.author.display_name,inline=False)
+				emb.add_field(name="Ник:", value=ctx.message.author.name,inline=False)
+				emb.add_field(name="Айди пользователя:", value=ctx.message.author.id,inline=False)
+				t = ctx.message.author.status
+				if t == discord.Status.online:
+					d = "🟢 В сети"
+
+				t = ctx.message.author.status
+				if t == discord.Status.offline:
+					d = "⚪ Не в сети"
+
+				t = ctx.message.author.status
+				if t == discord.Status.idle:
+					d = "🟠 Не активен"
+
+				t = ctx.message.author.status
+				if t == discord.Status.dnd:
+					d = "🔴  Не беспокоить"
+
+				emb.add_field(name="Активность:", value=d,inline=False)
+				emb.add_field(name="Статус:", value=ctx.message.author.activity,inline=False)
+				emb.add_field(name="Высшая роль на сервере:", value=f"{ctx.message.author.top_role.mention}",inline=False)
+				emb.add_field(name="Роли на сервере:", value= ",".join(m.mention for m in ctx.author.roles),inline=False)
+				emb.add_field(name="Аккаунт был создан:", value=ctx.message.author.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
+				emb.add_field(name ='Присоединился к серверу', value = ctx.message.author.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
+				emb.set_thumbnail(url=ctx.message.author.avatar_url)
+				emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+				await ctx.send(content=f"Информация по аккаунту: {ctx.message.author.mention}" , embed = emb)
+			else:
+				emb = discord.Embed(title="Информация о пользователе", color=member.color, timestamp=datetime.utcnow())
+				emb.add_field(name="Имя:", value=member.display_name,inline=False)
+				emb.add_field(name="Ник:", value=member.name,inline=False)
+				emb.add_field(name="Айди пользователя:", value=member.id,inline=False)
+				t = member.status
+				if t == discord.Status.online:
+					d = "🟢 В сети"
+
+				t = member.status
+				if t == discord.Status.offline:
+					d = "⚪ Не в сети"
+
+				t = member.status
+				if t == discord.Status.idle:
+					d = "🟠 Не активен"
+
+				t = member.status
+				if t == discord.Status.dnd:
+					d = "🔴  Не беспокоить"
+				emb.add_field(name="Активность:", value=d,inline=False)
+				emb.add_field(name="Статус:", value=member.activity,inline=False)
+				emb.add_field(name="Высшая роль на сервере:", value=f"{member.top_role.mention}",inline=False)
+				emb.add_field(name="Роли на сервере:", value=",".join(m.mention for m in member.roles),inline=False)
+				emb.add_field(name="Аккаунт был создан:", value=member.created_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
+				emb.add_field(name ='Присоединился к серверу', value = member.joined_at.strftime("%a, %#d %B %Y, %I:%M %p UTC"),inline=False)
+				emb.set_thumbnail(url=member.avatar_url)
+				emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+				await ctx.send(content=f"Информация по аккаунту: {member.mention}" ,embed = emb)
 
     
 # #userinfo
@@ -264,54 +350,54 @@ class User(commands.Cog):
 	async def clear_error(self, ctx,error):
 		if isinstance (error, commands.MissingRequiredArgument):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !clear [от 1 до 100]', colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !clear [от 1 до 100]', colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 		if isinstance(error, commands.MissingAnyRole):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 	@kick.error
 	async def kick_error(self, ctx,error):
 		if isinstance (error, commands.MissingRequiredArgument):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !kick {0.author.mention} [причина]'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !kick {0.author.mention} [причина]'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 		if isinstance(error, commands.MissingPermissions):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 
 	@tempmute.error
 	async def tempmute_error(self, ctx,error):
 		if isinstance (error, commands.MissingRequiredArgument):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !tempmute {0.author.mention} [время] [причина]'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !tempmute {0.author.mention} [время] [причина]'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 		if isinstance(error, commands.MissingAnyRole):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 
 	@unmute.error
 	async def unmute_error(self, ctx,error):
 		if isinstance (error, commands.MissingRequiredArgument):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !unmute {0.author.mention}'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format (ctx.author.name), description='Пример: !unmute {0.author.mention}'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 		if isinstance(error, commands.MissingAnyRole):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format (ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 
 	@unban.error
 	async def unban_error(self, ctx,error):
 		if isinstance (error, commands.MissingRequiredArgument):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format(ctx.author.name),description='Пример: !unban namesloga13', colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format(ctx.author.name),description='Пример: !unban namesloga13', colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 		if isinstance(error, commands.MissingPermissions):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format(ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format(ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 
 
@@ -319,11 +405,11 @@ class User(commands.Cog):
 	async def voteban_error(self, ctx,error):
 		if isinstance (error, commands.MissingRequiredArgument):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format(ctx.author.name),description='Пример: !voteban {0.author.mention} [причина]'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} Обязательно укажите аргумент!'.format(ctx.author.name),description='Пример: !voteban {0.author.mention} [причина]'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 		if isinstance(error, commands.MissingPermissions):
 			await ctx.message.delete()
-			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format(ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=ctx.message.created_at)
+			embed = discord.Embed(title=':x: {} у вас нет прав модератора'.format(ctx.author.name), description='{0.author.mention} Обратитесь к модераторам'.format(ctx.message), colour = discord.Color.gold(), timestamp=datetime.utcnow())
 			await ctx.send(content=ctx.author.mention, embed=embed, delete_after=30)
 
 
