@@ -153,7 +153,7 @@ class User(commands.Cog):
 		emb.add_field(name ='!ds :rose:', value = 'Ссылка на наш дс')
 		emb.add_field(name ='!slot 🍒', value = 'Игра для развлечения')
 		emb.add_field(name ='!server_info :pencil:', value = 'Информация о сервере')
-		emb.add_field(name ='!userinfo :pencil:', value = 'Узнать информацию о себе')
+		emb.add_field(name ='!infouser :pencil:', value = 'Узнать информацию о себе')
 		emb.add_field(name ='!ticket :microbe:', value = 'Заявка на баг/предложение')
 		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
 
