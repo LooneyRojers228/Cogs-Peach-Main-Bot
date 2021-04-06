@@ -2,6 +2,7 @@ import discord
 import asyncio 
 import datetime
 import random
+import pandas as pd
 from discord.ext import commands
 from typing import Optional
 from discord import Embed, Member
@@ -330,6 +331,17 @@ class User(commands.Cog):
 				emb.set_thumbnail(url=member.avatar_url)
 				emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
 				await ctx.send(content=f"Информация по аккаунту: {member.mention}" ,embed = emb)
+
+
+	@commands.command(aliases = ["onlineee"])
+	async def online(self, ctx, *, fraction):
+		url = f"https://arizona-rp.com/mon/fraction/8/{fraction}"
+		df = pd.read_html(url)[0]
+		online = df.loc[df[3] == 'Сейчас играет', 1].to_list()
+		emb = discord.Embed (title = 'Онлайн огранизаций на сервере Red-Rock', colour = ctx.message.author.color, timestamp=datetime.utcnow())
+		emb.add_field(name=f"Фракция: {fraction}", value=f'В сети: {len(online)}')
+		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
+		await ctx.send(embed=emb)
 
     
 # #userinfo
