@@ -269,10 +269,10 @@ class User(commands.Cog):
 	@commands.command(aliases = ["slooo"])
 	@commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
 	async def infouser(self, ctx, member:discord.Member = None, guild: discord.Guild = None):
-		
+
 		if ctx.channel.id != 817402429100392449:
-		await ctx.message.delete()
-		await ctx.send(f"Команда работает только в канале **🍔┃управление-ботом**", delete_after=10)
+			await ctx.message.delete()
+			await ctx.send(f"Команда работает только в канале **🍔┃управление-ботом**", delete_after=10)
 		return
 
 		if ctx.channel.id == 817402429100392449:
