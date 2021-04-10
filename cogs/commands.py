@@ -275,7 +275,7 @@ class User(commands.Cog):
 			await ctx.send(f"Команда работает только в канале **🍔┃управление-ботом**", delete_after=10)
 		return
 
-		if ctx.channel.id == 817402429100392449:
+		elif ctx.channel.id == 817402429100392449:
 			await ctx.message.delete()
 			if member == None:
 				emb = discord.Embed(title="Информация о пользователе", color=ctx.message.author.color, timestamp=datetime.utcnow())
