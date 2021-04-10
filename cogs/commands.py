@@ -270,13 +270,12 @@ class User(commands.Cog):
 	@commands.cooldown(rate=1, per=10, type=commands.BucketType.user)
 	async def infouser(self, ctx, member:discord.Member = None, guild: discord.Guild = None):
 
-		if ctx.channel.id != 817402429100392449:
-			await ctx.message.delete()
-			await ctx.send(f"Команда работает только в канале **🍔┃управление-ботом**", delete_after=10)
-		return
+		await ctx.message.delete()
+		await ctx.send(f"Команда работает только в канале **🍔┃управление-ботом**", delete_after=10)
+		
 
-		elif ctx.channel.id == 817402429100392449:
-			await ctx.message.delete()
+		if ctx.channel.id == 817402429100392449:
+			await ctx.channel.purge(limit = 1)
 			if member == None:
 				emb = discord.Embed(title="Информация о пользователе", color=ctx.message.author.color, timestamp=datetime.utcnow())
 				emb.add_field(name="Имя:", value=ctx.message.author.display_name,inline=False)
