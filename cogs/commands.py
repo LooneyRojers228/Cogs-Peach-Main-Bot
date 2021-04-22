@@ -96,13 +96,7 @@ class User(commands.Cog):
 		await ctx.send(embed = emb, delete_after=30)
 
 
-	@commands.command(aliases = ["cleaeeeeee"])
-	@commands.has_permissions(administrator = True)
-	async def clearkanal (self, ctx, amount=None):
-		await ctx.channel.purge(limit=int(amount))
-		await ctx.channel.send(':: Сообщения успешно удалены')
-
-
+		
 # Kick
 	@commands.command(aliases = ["kic"])
 	@commands.has_permissions(administrator = True)
