@@ -98,10 +98,10 @@ class User(commands.Cog):
 
 	@commands.command(aliases = ["cleaeeeeee"])
 	@commands.has_permissions(administrator = True)
-	async def clearkanal (self, ctx):
-		await ctx.channel.purge(limit = 10000)
-		emb = discord.Embed (title = 'Канал очищен', colour = discord.Color.gold())
-		await ctx.send(embed = emb, delete_after=30)
+	async def clearkanal (self, ctx, amount=None):
+		await ctx.channel.purge(limit=int(amount))
+		await ctx.channel.send(':: Сообщения успешно удалены')
+
 
 # Kick
 	@commands.command(aliases = ["kic"])
