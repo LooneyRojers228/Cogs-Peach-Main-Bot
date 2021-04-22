@@ -1,4 +1,4 @@
-import discord
+!import discord
 import asyncio 
 import datetime
 import random
@@ -94,6 +94,13 @@ class User(commands.Cog):
 		await ctx.channel.purge(limit = amount + 1)
 		emb = discord.Embed (title = 'Удалено {} сообщений!'.format(amount), colour = discord.Color.gold())
 		await ctx.send(embed = emb, delete_after=30)
+
+
+	@commands.command(aliases = ["cleaeeeeee"])
+	@commands.has_permissions(administrator = True)
+	async def clearkanal (self, ctx):
+		await ctx.channel.purge(limit = 10000)
+		emb = discord.Embed (title = 'Канал очищен', colour = discord.Color.gold())
 
 # Kick
 	@commands.command(aliases = ["kic"])
