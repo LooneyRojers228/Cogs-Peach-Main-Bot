@@ -101,6 +101,7 @@ class User(commands.Cog):
 	async def clearkanal (self, ctx):
 		await ctx.channel.purge(limit = 10000)
 		emb = discord.Embed (title = 'Канал очищен', colour = discord.Color.gold())
+		await ctx.send(embed = emb, delete_after=30)
 
 # Kick
 	@commands.command(aliases = ["kic"])
