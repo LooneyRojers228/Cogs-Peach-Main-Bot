@@ -47,6 +47,28 @@ class User(commands.Cog):
 		await ctx.send (embed = emb,delete_after=30)
 
 
+
+	@commands.command(aliases = ["меропртиятие1"])
+	@commands.has_permissions(administrator=True)
+	async def mp(self, ctx):
+		emb = discord.Embed(title=f'Праздник вазелина', description='Нажми на реакцию что бы получить роль', colour=discord.Color.purple())
+
+		message = await ctx.send(embed=emb)  # Send embed
+		await message.add_reaction('✅') # Add reaction
+		roles = discord.utils.get(message.guild.roles, id = 839599224000610344) # Replace it with the role ID
+		check = lambda reaction, user: client.user != user # Excludes the bot reaction
+
+		while True:
+			reaction, user = await client.wait_for('reaction_add', check=check) # Wait for reaction
+			if str(reaction.emoji) == "✅":
+				await user.add_roles(roles) # Add role
+				print('[SUCCESS] Пользователь {0.display_name} получил новую роль {1.name}'.format(check, roles)) # Print
+
+				await user.send('TEST') # Send message to member
+
+
+
+#о сервере
 	@commands.command(aliases = ["инфо о серваке"])
 	async def server_info(self, ctx):
 		await ctx.message.delete()
@@ -195,7 +217,7 @@ class User(commands.Cog):
 		embed = discord.Embed(title = ':pencil: | Новая заявка на предложение/баг зарегистрирована в системе ', colour = discord.Color.purple(), timestamp=datetime.utcnow())
 		embed.add_field(name=f':rose: | Отправитель: {ctx.author.name}', value = f':poop: **| Суть обращения: {bag}**')
 		embed.set_footer(text =f'Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
-		await channel.send(content=f"{myid}{jasonid}**, Пришла новая заявка, ждёт рассмотрения!**", embed=embed) 
+		await channel.send(content=f"{myid},{jasonid}**, Пришла новая заявка, ждёт рассмотрения!**", embed=embed) 
 
 
 	#unmute
@@ -348,6 +370,8 @@ class User(commands.Cog):
 		emb.add_field(name=f"Фракция: {fraction}", value=f'В сети: {len(online)}')
 		emb.set_footer (text ='Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
 		await ctx.send(embed=emb)
+
+
 
     
 # #userinfo
