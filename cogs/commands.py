@@ -217,7 +217,8 @@ class User(commands.Cog):
 		embed = discord.Embed(title = ':pencil: | Новая заявка на предложение/баг зарегистрирована в системе ', colour = discord.Color.purple(), timestamp=datetime.utcnow())
 		embed.add_field(name=f':rose: | Отправитель: {ctx.author.name}', value = f':poop: **| Суть обращения: {bag}**')
 		embed.set_footer(text =f'Peach Bot Main', icon_url=ctx.bot.user.avatar_url)
-		await channel.send(content=f"{myid},{jasonid}**, Пришла новая заявка, ждёт рассмотрения!**", embed=embed) 
+		await channel.send(content=f"{myid},{jasonid}**, Пришла новая заявка, ждёт рассмотрения!**", embed=embed)
+
 
 
 	#unmute
@@ -353,7 +354,8 @@ class User(commands.Cog):
 				emb.add_field(name="Активность:", value=d,inline=False)
 				emb.add_field(name="Статус:", value=member.activity,inline=False)
 				emb.add_field(name="Высшая роль на сервере:", value=f"{member.top_role.mention}",inline=False)
-				emb.add_field(name="Роли на сервере:", value=",".join(m.mention for m in member.roles),inline=False)
+				emb.add_field(name="Роли на сервере:", value=",".join(m.mention for m in member.roles[1:]),inline=False)
+
 				emb.add_field(name="Аккаунт был создан:", value=member.created_at.strftime("%d.%m.%Y в %H:%M"),inline=False)
 				emb.add_field(name ='Присоединился к серверу', value = member.joined_at.strftime("%d.%m.%Y в %H:%M"),inline=False)
 				emb.set_thumbnail(url=member.avatar_url)
@@ -372,8 +374,6 @@ class User(commands.Cog):
 		await ctx.send(embed=emb)
 
 
-
-    
 # #userinfo
 # @commands.command()
 # async def userinfo(ctx,member:discord.Member):
