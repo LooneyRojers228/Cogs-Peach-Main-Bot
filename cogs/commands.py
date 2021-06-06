@@ -325,7 +325,7 @@ class User(commands.Cog):
 				emb.add_field(name="Активность:", value=d,inline=False)
 				emb.add_field(name="Статус:", value=ctx.message.author.activity,inline=False)
 				emb.add_field(name="Высшая роль на сервере:", value=f"{ctx.message.author.top_role.mention}",inline=False)
-				emb.add_field(name="Роли на сервере:", value= ",".join(m.mention for m in ctx.author.roles),inline=False)
+				emb.add_field(name="Роли на сервере:", value= ",".join(m.mention for m in ctx.author.roles if m.name != '@everyone'),inline=False)
 				emb.add_field(name="Аккаунт был создан:", value=ctx.message.author.created_at.strftime("%d.%m.%Y в %H:%M"),inline=False)
 				emb.add_field(name ='Присоединился к серверу', value = ctx.message.author.joined_at.strftime("%d.%m.%Y в %H:%M"),inline=False)
 				emb.set_thumbnail(url=ctx.message.author.avatar_url)
