@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import os
 
-TOKEN = 'ODE4ODc3NTY4MTI3NDY3NTcx.YEedKg.8TyZ0PK6tmkTuA9hwP507so79P4'
+TOKEN = 'ODE4ODc3NTY4MTI3NDY3NTcx.YEedKg.qJrhqJK9-9eIo34xhBGOXLpwmzg'
 
 intents = discord.Intents.all()
 
